@@ -1,0 +1,19 @@
+name: Automation Workflow
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  automate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move Card on Kanban Board
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const column_id = '1';
+            const { data: columns } = await github.projects.listColumns({ project_id: '6' });
+            const targetColumn = columns.find(column => column.name === 'Done');
+            const card_id = github.context.payload.issue.card_id;
+            await github.projects.moveCard({ card_id, column_id: targetColumn.id });
