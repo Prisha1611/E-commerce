@@ -1,36 +1,78 @@
-// console.clear();
+let contentData = [
+  {
+    id: 1,
+    name: "Product 1",
+    brand: "Red mens shirt",
+    preview: "img/product1.jpeg",
+    price: "50",
+    isAccessory: false
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    brand: "Blue mens shirt",
+    preview: "img/product2.jpeg",
+    price: "75",
+    isAccessory: false
+  },
+  {
+    id: 3,
+    name: "Product 3",
+    brand: "Yellow Flannel",
+    preview: "img/product3.jpeg",
+    price: "30",
+    isAccessory: true
+  },
+  {
+    id: 4,
+    name: "Product 4",
+    brand: "Unisex jacket",
+    preview: "img/product4.jpeg",
+    price: "100",
+    isAccessory: false
+  }
+];
 
-let contentTitle;
-
-console.log(document.cookie);
 function dynamicClothingSection(ob) {
   let boxDiv = document.createElement("div");
-  boxDiv.id = "box";
+  boxDiv.className = "box";
+  boxDiv.style.display = "inline-block";
+  boxDiv.style.width = "200px";
+  boxDiv.style.margin = "10px";
+  boxDiv.style.border = "1px solid #ccc";
+  boxDiv.style.padding = "10px";
+  boxDiv.style.textAlign = "center";
 
   let boxLink = document.createElement("a");
-  // boxLink.href = '#'
   boxLink.href = "/contentDetails.html?" + ob.id;
-  // console.log('link=>' + boxLink);
+  boxLink.style.textDecoration = "none";
+  boxLink.style.color = "#333";
 
   let imgTag = document.createElement("img");
-  // imgTag.id = 'image1'
-  // imgTag.id = ob.photos
   imgTag.src = ob.preview;
+  imgTag.style.maxWidth = "100%";
+  imgTag.style.height = "auto";
 
   let detailsDiv = document.createElement("div");
-  detailsDiv.id = "details";
+  detailsDiv.className = "details";
+  detailsDiv.style.marginTop = "10px";
 
   let h3 = document.createElement("h3");
   let h3Text = document.createTextNode(ob.name);
   h3.appendChild(h3Text);
+  h3.style.margin = "5px 0";
 
   let h4 = document.createElement("h4");
   let h4Text = document.createTextNode(ob.brand);
   h4.appendChild(h4Text);
+  h4.style.margin = "5px 0";
 
   let h2 = document.createElement("h2");
-  let h2Text = document.createTextNode("rs  " + ob.price);
+  let h2Text = document.createTextNode("Ksh " + ob.price);
   h2.appendChild(h2Text);
+  h2.style.margin = "5px 0";
+  h2.style.fontSize = "18px";
+  h2.style.color = "#ff5733";
 
   boxDiv.appendChild(boxLink);
   boxLink.appendChild(imgTag);
@@ -42,50 +84,13 @@ function dynamicClothingSection(ob) {
   return boxDiv;
 }
 
-//  TO SHOW THE RENDERED CODE IN CONSOLE
-// console.log(dynamicClothingSection());
-
-// console.log(boxDiv)
-
-let mainContainer = document.getElementById("mainContainer");
 let containerClothing = document.getElementById("containerClothing");
 let containerAccessories = document.getElementById("containerAccessories");
-// mainContainer.appendChild(dynamicClothingSection('hello world!!'))
 
-// BACKEND CALLING
-
-let httpRequest = new XMLHttpRequest();
-
-httpRequest.onreadystatechange = function() {
-  if (this.readyState === 4) {
-    if (this.status == 200) {
-      // console.log('call successful');
-      contentTitle = JSON.parse(this.responseText);
-      if (document.cookie.indexOf(",counter=") >= 0) {
-        var counter = document.cookie.split(",")[1].split("=")[1];
-        document.getElementById("badge").innerHTML = counter;
-      }
-      for (let i = 0; i < contentTitle.length; i++) {
-        if (contentTitle[i].isAccessory) {
-          console.log(contentTitle[i]);
-          containerAccessories.appendChild(
-            dynamicClothingSection(contentTitle[i])
-          );
-        } else {
-          console.log(contentTitle[i]);
-          containerClothing.appendChild(
-            dynamicClothingSection(contentTitle[i])
-          );
-        }
-      }
-    } else {
-      console.log("call failed!");
-    }
+for (let i = 0; i < contentData.length; i++) {
+  if (contentData[i].isAccessory) {
+    containerAccessories.appendChild(dynamicClothingSection(contentData[i]));
+  } else {
+    containerClothing.appendChild(dynamicClothingSection(contentData[i]));
   }
-};
-httpRequest.open(
-  "GET",
-  "https://5d76bf96515d1a0014085cf9.mockapi.io/product",
-  true
-);
-httpRequest.send();
+}
