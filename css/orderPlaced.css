@@ -1,29 +1,45 @@
+/* Styles for the orderContainer */
+#orderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    border: 2px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius for rounded corners */
+    padding: 20px; /* Add padding for space inside the border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+}
 
-#orderContainer
-{
-    font-family: 'Lato', sans-serif;
-    width: 80%;
-    padding-top: 250px;
-    padding-bottom: 150px;
-    margin: auto;
+/* Styles for the check icon */
+#check {
+    font-size: 64px; 
+    color: green; 
+}
+
+/* Styles for the text */
+#aboutCheck {
     text-align: center;
 }
-#orderContainer i
-{
-    color: rgb(5, 187, 5);
-    padding-bottom: 30px;
-    font-size: 10em;
+
+/* Styles for the h1 element */
+#aboutCheck h1 {
+    font-size: 24px; 
+    font-weight: bold;
+    margin-bottom: 10px;
 }
-#aboutCheck p
-{
-    font-weight: 100;
-    letter-spacing: 1px;
+
+/* Styles for the p element */
+#aboutCheck p {
+    font-size: 16px; 
 }
-#aboutCheck h1
-{
-    letter-spacing: 1px;
-    word-spacing: 1px;
+/* Styles for the check icon */
+#check {
+    font-size: 250px; 
+    color: rgb(224, 244, 92); 
 }
+
+
 
 /* ----------------------------- MEDIA QUERY --------------------------- */
 
